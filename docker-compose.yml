@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+  baseos:
+    build: ./docker-openstack-baseos/
+    image: docker.pkg.github.com/cwxlab/openstack/baseos:stein
+    container_name: baseos
+    hostname: baseos
+  keystone:
+    depends_on: baseos
+    build: ./docker-openstack-keystone/
+    image: docker.pkg.github.com/cwxlab/openstack/keystone:stein
+    container_name: keystone
+    hostname: keystone
+    ports:
+      - "5000:5000"
+    volumes:
+      - type: bind
+        source: /opt/hosting/openstack/stein/Docker/keystone/etc/keystone/keystone.conf
+        target: /etc/keystone/keystone.conf
+        read_only: true
+      - type: bind
+        source: /opt/hosting/openstack/stein/Docker/keystone/etc/keystone/fernet-keys/
+        target: /etc/keystone/fernet-keys/
+      - type: bind
+        source: /opt/hosting/openstack/stein/Docker/keystone/etc/keystone/credential-keys/
+        target: /etc/keystone/credential-keys/
