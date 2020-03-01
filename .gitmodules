@@ -3,4 +3,4 @@
 	url = ../docker-openstack-keystone
 [submodule "database"]
 	path = database
-	url = git@github.com:CwxLab/docker-openstack-database.git
+	url = ../docker-openstack-database
