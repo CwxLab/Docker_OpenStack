@@ -1,14 +1,15 @@
 version: '3.3'
 services:
   baseos:
-    build: ./docker-openstack-baseos/
-    image: docker.pkg.github.com/cwxlab/docker-openstack/baseos:stein
+    build: ./baseos/
+    image: docker.pkg.github.com/cwxlab/openstack/baseos:stein
     container_name: baseos
     hostname: baseos
   database:
-    depends_on: baseos
-    build: ./docker-openstack-database/
-    image: docker.pkg.github.com/cwxlab/docker-openstack/database:stein
+    depends_on:
+      - baseos
+    build: ./database/
+    image: docker.pkg.github.com/cwxlab/openstack/database:stein
     container_name: database
     hostname: database
     ports:
@@ -24,8 +25,8 @@ services:
   keystone:
     depends_on:
       - baseos
-    build: ./docker-openstack-keystone/
-    image: docker.pkg.github.com/cwxlab/docker-openstack/keystone:stein
+    build: ./keystone/
+    image: docker.pkg.github.com/cwxlab/openstack/keystone:stein
     container_name: keystone
     hostname: keystone
     ports:

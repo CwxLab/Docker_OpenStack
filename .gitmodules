@@ -1,6 +1,9 @@
 [submodule "docker-openstack-keystone"]
-	path = docker-openstack-keystone
+	path = keystone
 	url = ../docker-openstack-keystone
 [submodule "docker-openstack-baseos"]
-	path = docker-openstack-baseos
+	path = baseos
 	url = ../docker-openstack-baseos
+[submodule "database"]
+	path = database
+	url = git@github.com:CwxLab/docker-openstack-database.git
