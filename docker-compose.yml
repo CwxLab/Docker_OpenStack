@@ -1,13 +1,6 @@
 version: '3.3'
 services:
-  baseos:
-    build: ./baseos/
-    image: docker.pkg.github.com/cwxlab/openstack/baseos:stein
-    container_name: baseos
-    hostname: baseos
   database:
-    depends_on:
-      - baseos
     build: ./database/
     image: docker.pkg.github.com/cwxlab/openstack/database:stein
     container_name: database
@@ -23,8 +16,7 @@ services:
         target: /etc/mysql/mariadb.cond.d/99-openstack.conf
         read_only: true
   keystone:
-    depends_on:
-      - baseos
+      - database
     build: ./keystone/
     image: docker.pkg.github.com/cwxlab/openstack/keystone:stein
     container_name: keystone
