@@ -5,11 +5,27 @@ services:
     image: docker.pkg.github.com/cwxlab/docker-openstack/baseos:stein
     container_name: baseos
     hostname: baseos
+  database:
+    depends_on: baseos
+    build: ./docker-openstack-database/
+    image: docker.pkg.github.com/cwxlab/docker-openstack/database:stein
+    container_name: database
+    hostname: database
+    ports:
+      - "3306:3306"
+    volumes:
+      - type: bind
+        source: /var/opt/hosting/docker/openstack/database/stein/var/lib/mysql/
+        target: /var/lib/mysql/
+      - type: bind
+        source: /opt/hosting/docker/openstack/database/stein/etc/mysql/mariadb.cond.d/99-openstack.conf
+        target: /etc/mysql/mariadb.cond.d/99-openstack.conf
+        read_only: true
   keystone:
     depends_on:
       - baseos
     build: ./docker-openstack-keystone/
-    image: docker.pkg.github.com/cwxlab/openstack/keystone:stein
+    image: docker.pkg.github.com/cwxlab/docker-openstack/keystone:stein
     container_name: keystone
     hostname: keystone
     ports:
