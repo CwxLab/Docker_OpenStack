@@ -1,6 +1,6 @@
 [submodule "docker-openstack-keystone"]
-	path = docker-openstack-keystone
+	path = keystone
 	url = ../docker-openstack-keystone
 [submodule "docker-openstack-baseos"]
-	path = docker-openstack-baseos
+	path = ubuntu
 	url = ../docker-openstack-baseos
